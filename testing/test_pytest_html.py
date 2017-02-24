@@ -336,8 +336,10 @@ class TestHTML:
                               ('txt', 'text', 'text')])
     def test_extra_separated(self, testdir, file_extension,
                              extra_type, file_type):
-        content = b64encode(str(random.random())
-                            .encode('utf-8')).decode('ascii')
+        if file_type == 'image':
+            content = b64encode('spam'.encode('utf-8')).decode('ascii')
+        else:
+            content = '\x81' if PY3 else '\x81'.encode('utf-8')
         testdir.makeconftest("""
             import pytest
             @pytest.mark.hookwrapper
@@ -372,8 +374,10 @@ class TestHTML:
                               ('txt', 'text', 'text')])
     def test_extra_separated_rerun(self, testdir, file_extension,
                                    extra_type, file_type):
-        content = b64encode(str(random.random())
-                            .encode('utf-8')).decode('ascii')
+        if file_type == 'image':
+            content = b64encode('spam'.encode('utf-8')).decode('ascii')
+        else:
+            content = '\x81' if PY3 else '\x81'.encode('utf-8')
         testdir.makeconftest("""
             import pytest
             @pytest.mark.hookwrapper
