@@ -158,7 +158,7 @@ class HTMLReport(object):
 
             relative_path = '{0}/{1}'.format('assets', asset_file_name)
 
-            kwargs = {'encoding': 'utf-8'} if 'b' not in mode else {}
+            kwargs = {}
             with open(asset_path, mode, **kwargs) as f:
                 f.write(content)
             return relative_path
